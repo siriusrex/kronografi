@@ -1,0 +1,128 @@
+{timeLineArray : [
+  {
+    id:1,
+    title:'GEOLOGICAL AGES ON EARTH',
+    start: '252',
+    end: 66,
+    unit: 'MYA',
+    timeSpans:[{
+      id: 1,
+      color: "blue",
+      text: "CRETACEOUS",
+
+      earliestStart: 145,
+      latestStart: 145,
+      earliestEnd: 66,
+      latestEnd:66
+    },
+    {
+      id: 2,
+      color: "red",
+      text: "JURASSIC",
+      earliestStart: 201,
+      latestStart: 201,
+      earliestEnd: 145,
+      latestEnd:145
+    },
+    {
+      id: 3,
+      color: "green",
+      text: "TRIASSIC",
+      earliestStart: 252,
+      latestStart: 252,
+      earliestEnd: 201,
+      latestEnd:201
+    }]
+  },
+  {
+    id:2,
+    title:'DINOSAURS',
+    start: '243',
+    end: 66,
+    unit: 'MYA',
+    timeSpans:[
+      {
+      id: 1,
+      color: "pink",
+      text: "TYRANNOSAURUS REX",
+      earliestStart: 68,
+      latestStart: 68,
+      earliestEnd: 66,
+      latestEnd:66
+      },
+      {
+      id: 2,
+      color: "gray",
+      text: "STEGOSAURUS",
+      earliestStart: 155,
+      latestStart: 155,
+      earliestEnd: 150,
+      latestEnd:150
+      },
+
+      {
+      id: 3,
+      color: "violet",
+      text: "DIPLODOCUS",
+      earliestStart: 154,
+      latestStart: 154,
+      earliestEnd: 152,
+      latestEnd:152
+      }
+    ]
+  },
+  {
+    id:3,
+    title:'MAMMALS',
+    start: '225',
+    end: 0,
+    unit: 'MYA',
+    timeSpans:[{
+      id: 1,
+      color: "purple",
+      text: "MARSUPIALS",
+      earliestStart: 65,
+      latestStart: 65,
+      earliestEnd: 0,
+      latestEnd:0
+    },
+    {
+      id: 2,
+      color: "orange",
+      text: "PLACENTALS",
+      earliestStart: 66,
+      latestStart: 66,
+      earliestEnd: 0,
+      latestEnd:0
+    }]
+
+  },
+  {
+    id:3,
+    title:'FOOLINE',
+    start: '500',
+    end: 200,
+    unit: 'MYA',
+    timeSpans:[{
+      id: 1,
+      color: "green",
+      text: "BARSPAN",
+      earliestStart: 400,
+      latestStart: 400,
+      earliestEnd: 200,
+      latestEnd:200
+    },
+    {
+      id: 2,
+      color: "#f66eff",
+      text: "FOOSPAN",
+      earliestStart: 500,
+      latestStart: 500,
+      earliestEnd: 300,
+      latestEnd:300
+    }]
+
+  },
+
+]
+}
