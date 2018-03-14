@@ -41,7 +41,9 @@ export default class TimeScope extends Component {
 
     if (evt.nativeEvent.touches.length>1){
       var touch1X:Number=parseFloat(evt.nativeEvent.touches[1].locationX);
+      console.log('  touch1X='+touch1X);
       var touch0X:Number=parseFloat(evt.nativeEvent.touches[0].locationX);
+      console.log('  touch0X='+touch0X);
       var pinchGap:Number=Math.abs(parseFloat(touch1X-touch0X));
       if (this.state.pinchStarted==false){
 
@@ -49,14 +51,21 @@ export default class TimeScope extends Component {
 
       }
       else {
-        this.setState({currentPinchGap: pinchGap, scopeWidth: pinchGap*5});
+        this.setState((prevState, props) => {
+          console.log('  prevState.scopeWidth='+prevState.scopeWidth);
+          console.log('  pinchGap='+pinchGap);
+          console.log('  parseFloat(prevState.scopeWidth+pinchGap)='+parseFloat(prevState.scopeWidth+pinchGap));
+          var newScopeWidth=parseFloat(prevState.scopeWidth+pinchGap);
+          return{currentPinchGap: pinchGap, scopeWidth: newScopeWidth };
+
+        });
       }
     }
 
 
-    console.log('this.state.initialPinchGap='+this.state.initialPinchGap);
-    console.log('this.state.currentPinchGap='+this.state.currentPinchGap);
-    console.log('this.state.scopeWidth='+this.state.scopeWidth);
+    console.log(' this.state.initialPinchGap='+this.state.initialPinchGap);
+    console.log(' this.state.currentPinchGap='+this.state.currentPinchGap);
+    console.log(' this.state.scopeWidth='+this.state.scopeWidth);
 
   }
 
@@ -67,6 +76,7 @@ export default class TimeScope extends Component {
     return (
 
         <View  {...this.panResponder.panHandlers} style={{flex: 1}}>
+            <View style={{width: this.state.currentPinchGap, height: 50, backgroundColor:'yellow'}}/>
             <TimeRuler scopeSpan={this.props.scopeSpan} scopeWidth={this.state.scopeWidth}/>
             <ScrollView horizontal={false} onScroll={this.props.updateDummyTitleScroll} scrollEventThrottle={16} >
 
