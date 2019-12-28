@@ -10,7 +10,7 @@ export default class DataFetcher {
     return fetch('./Data.js')
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log('responseJson.timeLineArray='+responseJson.timeLineArray)
+        //console.log('responseJson.timeLineArray='+responseJson.timeLineArray)
         this.setState({timeLineArray:responseJson.timeLineArray})
 
       })

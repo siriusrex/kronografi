@@ -11,7 +11,7 @@ import { AppRegistry,  View, ScrollView, Text, StyleSheet} from 'react-native';
 export default class TimeRulerSegment extends Component {
   render() {
     return (
-      <View style={{width: this.props.width, height: 30, borderRightWidth: 1, borderRightColor: '#fff' }}>
+      <View style={{position: 'absolute', left: this.props.left, width: this.props.width, height: 35, borderRightWidth: 1, borderRightColor: '#fff' }}>
         <View style={{width: this.props.width/2, height: 15, borderRightWidth: 1, borderRightColor: '#fff'}}/>
       <Text style={styles.timeRulerText}>{this.props.id}</Text>
       </View>

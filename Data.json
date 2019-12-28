@@ -7,7 +7,7 @@
     unit: 'MYA',
     timeSpans:[{
       id: 1,
-      color: "blue",
+      color: "yellow",
       text: "CRETACEOUS",
 
       earliestStart: 145,

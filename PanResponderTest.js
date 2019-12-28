@@ -38,8 +38,8 @@ export default class PanResponderExample extends Component {
     }
 
 
-    console.log('this.state.initialPinchGap='+this.state.initialPinchGap);
-    console.log('this.state.currentPinchGap='+this.state.currentPinchGap);
+    //console.log('this.state.initialPinchGap='+this.state.initialPinchGap);
+    //console.log('this.state.currentPinchGap='+this.state.currentPinchGap);
 
   }
 

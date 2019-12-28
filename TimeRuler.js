@@ -11,30 +11,41 @@ import TimeRulerSegment from './TimeRulerSegment';
 export default class TimeRuler extends Component {
   constructor(props){
     super(props);
-    this.segmentCount=parseInt(this.props.scopeSpan/100);
-    this.segmentWidth=this.props.scopeWidth/this.segmentCount;
 
-    this.state={
 
-    };
+
+
+    //this.segmentSpan*this.props.pixelUnit;
+
   }
 
 
+  componentDidUpdate(){
+    //this.segmentCount=parseInt(this.props.scopeWidth/this.segmentWidth);
+    //this.segmentSpan=parseInt(this.props.scopeSpan/this.segmentCount);
 
+  }
 
 
   render() {
 
 
 
-    /*console.log('segmentCount='+segmentCount);
-    console.log('segmentWidth='+segmentWidth);*/
+    //console.log('at TimeRuler render, this.segmentCount='+this.segmentCount);
+    //console.log('this.props.scopeSpan='+this.props.scopeSpan);
+    //console.log('this.segmentSpan='+this.segmentSpan);
+    //console.log('this.segmentWidth='+this.segmentWidth);
+    this.segmentSpan=50;
+
+    this.segmentCount=parseInt(this.props.scopeSpan/this.segmentSpan);
+    this.segmentWidth=parseInt(this.props.scopeWidth/this.segmentCount);
+
     return (
       <View style={{width: this.props.scopeWidth, flexDirection: 'row', height:60, backgroundColor: 'black'}}>
-      {Array.apply(null, Array(6)).map((item, i)=>(
+      {Array.apply(null, Array(this.segmentCount+1)).map((item, i)=>(
 
 
-          <TimeRulerSegment key={i} width={this.segmentWidth} id={parseInt(this.props.scopeSpan-(i*100))}/>
+          <TimeRulerSegment key={i} width={this.segmentWidth} left={this.props.scopeWidth-(i*this.segmentWidth)} id={parseInt(i*this.segmentSpan)}/>
         ))}
 
 

@@ -14,9 +14,9 @@ import timeLineArrayData from './Data.json';
 export default class Kronografi extends Component {
   constructor(props){
     super(props);
-    this.state={timeLineArray: timeLineArrayData['timeLineArray'], scopeWidth:2000};
+    this.state={timeLineArray: timeLineArrayData['timeLineArray']};
 
-    this.scopeSpan=0;
+    this.scopeSpan=1;
   }
 
 
@@ -29,14 +29,14 @@ export default class Kronografi extends Component {
 
         this.scopeSpan=parseInt(item.start);
       }
-      console.log('Kronografi.render: after running, this.scopeSpan='+this.scopeSpan);
 
     });
+    //console.log('Kronografi.render: after running, this.scopeSpan='+this.scopeSpan);
 
     return (
-    
 
-      <MainView timeLineArray={this.state.timeLineArray} scopeWidth={2000} scopeSpan={this.scopeSpan+10}/>
+
+      <MainView timeLineArray={this.state.timeLineArray} scopeSpan={this.scopeSpan+10}/>
 
     );
 
