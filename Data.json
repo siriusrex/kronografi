@@ -118,8 +118,8 @@
       text: "FOOSPAN",
       earliestStart: 500,
       latestStart: 500,
-      earliestEnd: 300,
-      latestEnd:300
+      earliestEnd: 400,
+      latestEnd:400
     }]
 
   },

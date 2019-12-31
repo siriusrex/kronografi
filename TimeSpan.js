@@ -27,12 +27,13 @@ export default class TimeSpan extends Component {
 
   }
   componentDidUpdate(){
-    if (this.props.title.length*10>this.props.width){
+    if (this.props.title.length*12>this.props.width){
       this.externalTitle=true;
       this.rowHeight=80;
     }
     else {
       this.externalTitle=false;
+      this.rowHeight=40;
     }
     //console.log('timeSpan '+this.props.title+' componentDidUpdate.');
     //console.log('this.externalTitle='+this.externalTitle);
@@ -82,8 +83,8 @@ export default class TimeSpan extends Component {
             {this.props.children}
         </Animated.View>
         </TouchableWithoutFeedback>
-        <Text style={{position: 'absolute', left: this.props.left, fontFamily: 'Futura', marginTop: this.externalTitle ? 40:5, top: (this.props.row-1)*this.rowHeight, fontSize: 15, color: this.myTextColor}}>{this.props.title}</Text>
-        <Text style={{position: 'absolute', left: this.props.left, fontFamily: 'Futura', marginTop: this.externalTitle ? 55:20, top: (this.props.row-1)*this.rowHeight, fontSize: 13, color: this.myTextColor}}>{this.props.earliestStart+'-'+this.props.latestEnd+' mya'}</Text>
+        <Text style={{position: 'absolute', left: this.props.left, fontFamily: 'Futura', marginTop: this.externalTitle ? 40:5, top: 0, fontSize: 15, color: this.myTextColor}}>{this.props.title}</Text>
+        <Text style={{position: 'absolute', left: this.props.left, fontFamily: 'Futura', marginTop: this.externalTitle ? 55:20, top: 0, fontSize: 13, color: this.myTextColor}}>{this.props.earliestStart+'-'+this.props.latestEnd+' mya'}</Text>
 
       </View>
     )
