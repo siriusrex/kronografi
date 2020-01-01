@@ -84,7 +84,7 @@ export default class MainView extends Component {
           var scopeRatio=parseFloat(this.globals.pinchGap/this.globals.initialPinchGap);
           //console.log('scopeRatio='+scopeRatio);
           var windowDims=Dimensions.get('window');
-          //console.log('windowDims.width='+windowDims.width);
+          console.log('this.state.initialScopeWidth*scopeRatio='+this.state.initialScopeWidth*scopeRatio+'; windowDims.width='+windowDims.width);
           if (this.state.initialScopeWidth*scopeRatio>windowDims.width){
             this.setState({scopeWidth: (this.state.initialScopeWidth*scopeRatio), yellowBarWidth: (this.state.initialYellowBarWidth*scopeRatio)}, () =>{
 

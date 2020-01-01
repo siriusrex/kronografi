@@ -1,0 +1,18 @@
+KRNOGRAFI TO DO
+
+ - touch only opens timespan if it is currently wider than 300px
+ - OR touch zooms in on timespan so that it fills viewport
+ - OR is this double touch?
+
+
+ - Images and short desc for open timeSpan
+ - Button to move to timespan extended view mode (filling viewport with large images and full desc)
+
+ - Add earliestStart and latestEnd bars
+
+
+ - fix jitteriness
+
+ - data model in database
+ - database connection
+ - my timelines panel 
