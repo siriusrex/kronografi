@@ -11,8 +11,8 @@ KRNOGRAFI TO DO
  - Add earliestStart and latestEnd bars
 
 
- - fix jitteriness
+ - fix jitteriness in pinch zoom
 
  - data model in database
  - database connection
- - my timelines panel 
+ - my timelines panel

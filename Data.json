@@ -11,15 +11,15 @@
       text: "CRETACEOUS",
 
       earliestStart: 145,
-      latestStart: 145,
-      earliestEnd: 66,
+      latestStart: 140,
+      earliestEnd: 70,
       latestEnd:66
     },
     {
       id: 2,
       color: "red",
       text: "JURASSIC",
-      earliestStart: 201,
+      earliestStart: 223,
       latestStart: 201,
       earliestEnd: 145,
       latestEnd:145
@@ -29,8 +29,8 @@
       color: "green",
       text: "TRIASSIC",
       earliestStart: 252,
-      latestStart: 252,
-      earliestEnd: 201,
+      latestStart: 240,
+      earliestEnd: 223,
       latestEnd:201
     }]
   },
@@ -116,10 +116,10 @@
       id: 2,
       color: "#f66eff",
       text: "FOOSPAN",
-      earliestStart: 500,
-      latestStart: 500,
-      earliestEnd: 400,
-      latestEnd:400
+      earliestStart: 450,
+      latestStart: 400,
+      earliestEnd: 350,
+      latestEnd:300
     }]
 
   },

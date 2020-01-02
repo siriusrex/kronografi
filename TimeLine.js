@@ -105,6 +105,9 @@ export default class TimeLine extends Component {
                     latestEnd={item.latestEnd}
                     color={item.color}
                     width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
+                    startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
+                    endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
+
                     left={this.props.scopeWidth-(item.earliestStart*this.props.pixelUnit)}
                     row={item.row}
                     resizeParentVertical={(amount) => this.resizeVertical(amount)}
@@ -131,6 +134,10 @@ export default class TimeLine extends Component {
                     latestEnd={item.latestEnd}
                     color={item.color}
                     width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
+                    startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
+                    endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
+
+
                     left={this.props.scopeWidth-(item.earliestStart*this.props.pixelUnit)}
                     row={item.row}
                     resizeParentVertical={(amount) => this.resizeVertical(amount)}

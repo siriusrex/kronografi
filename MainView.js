@@ -29,22 +29,22 @@ export default class MainView extends Component {
 
     this.globals={pinchGap:0, initialPinchGap:0, scopeScrollPos:0, lastScrolledTo:0}
 
-
-
-
-  }
-
-  componentWillMount() {
-
-    // Initialize PanResponder with move handling
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (e, gesture) => true,
       onPanResponderMove: this.handlePanResponderMove.bind(this),
       onPanResponderGrant: this.handlePanResponderGrant.bind(this),
       onPanResponderRelease: this.handlePanResponderRelease.bind(this)
     });
-    //console.log('mainView mounted, this.props.scopeSpan='+this.props.scopeSpan);
+
+
   }
+
+  //componentWillMount() {
+
+    // Initialize PanResponder with move handling
+
+    //console.log('mainView mounted, this.props.scopeSpan='+this.props.scopeSpan);
+  //}
 
   handlePanResponderGrant(evt: Object, gestureState: Object){
     //console.log('handlePanResponderGrant');
