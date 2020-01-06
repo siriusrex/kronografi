@@ -4,6 +4,7 @@ Kronografi TimeSpan component
 */
 import React, { Component } from 'react';
 import { AppRegistry,  View, Image, ScrollView, Text, TouchableWithoutFeedback, Animated} from 'react-native';
+import CustomImage from './CustomImage';
 
 export default class TimeSpan extends Component {
   constructor(props){
@@ -11,9 +12,11 @@ export default class TimeSpan extends Component {
     this.externalTitle=false;
     this.rowHeight=40;
     this.myTextColor;
+
     this.state={heightAnim: new Animated.Value(this.rowHeight), open: false, imageOpacity:new Animated.Value(0)};
 
-    //console.log('TimeSpan constructor for '+this.props.title+', this.props.width='+this.props.width+', this.props.endErrorBarWidth='+this.props.endErrorBarWidth);
+
+
   }
 
   componentDidMount(){
@@ -29,7 +32,7 @@ export default class TimeSpan extends Component {
 
   }
   componentDidUpdate(){
-    if (this.props.title.length*12>this.props.width){
+    if (this.props.title.length*12>this.props.width-this.props.startErrorBarWidth-this.props.endErrorBarWidth){
       this.externalTitle=true;
       this.rowHeight=80;
     }
@@ -63,14 +66,15 @@ export default class TimeSpan extends Component {
               duration: 1000,              // Make it take a while
             }
           )]
-        ).start();
+        ).start(() => {this.props.resizeParentVertical(150)});
 
 
       this.setState({open:false});
-      this.props.resizeParentVertical(150);
+
 
     }
     else {
+      this.props.resizeParentVertical(400);
       Animated.sequence([
 
           Animated.timing(
@@ -89,11 +93,13 @@ export default class TimeSpan extends Component {
           )
 
         ]
-        ).start();
+      ).start();
       this.setState({open:true});
-      this.props.resizeParentVertical(400);
+
 
     }
+
+
 
   }
 
@@ -102,19 +108,39 @@ export default class TimeSpan extends Component {
 
     let { heightAnim } = this.state;
     let { imageOpacity } = this.state;
+
     return (
-      <View>
+      <View style={{marginTop:20}}>
         <TouchableWithoutFeedback onPress={this.onPress.bind(this)}>
 
           <Animated.View style={{width: this.props.width, height: heightAnim, position: 'absolute', left: this.props.left+(this.externalTitle ? 0:-10), top: 0, backgroundColor: this.props.color}}>
 
-              <Animated.Image
-                style={{opacity: imageOpacity, resizeMode: 'cover', marginLeft: 20, marginTop: 50, width: 80, height: 80}}
-                source={require('./img/tyrannosaur.png')}
-                />
+
 
             <Animated.View style={{width: this.props.startErrorBarWidth, height: heightAnim, position: 'absolute', backgroundColor: 'rgba(0,0,0,0.2)'}}/>
             <Animated.View style={{width: this.props.endErrorBarWidth, height: heightAnim, position: 'absolute', left: this.props.width-this.props.endErrorBarWidth, backgroundColor: 'rgba(0,0,0,0.2)'}}/>
+
+
+            <View style={{flexDirection:'row', marginLeft: this.props.startErrorBarWidth, flex: 1}}>
+              {this.props.images &&
+                this.props.images.map((item, key) =>(
+                <Animated.Image
+                  key={key}
+                  ref={key}
+                  source={{uri: item}}
+                  style={{opacity: imageOpacity,
+                          marginLeft: 10,
+                          marginTop: 50,
+                          width: 90,
+                          height: 90,
+                          borderRadius: 10}}
+                />
+
+              )
+            )
+          }
+          </View>
+
 
               {this.props.children}
 
@@ -122,8 +148,8 @@ export default class TimeSpan extends Component {
         </TouchableWithoutFeedback>
 
 
-        <Text style={{position: 'absolute', left: this.props.left, fontFamily: 'Futura', marginTop: this.externalTitle ? 40:5, top: 0, fontSize: 15, color: this.myTextColor}}>{this.props.title}</Text>
-        <Text style={{position: 'absolute', left: this.props.left, fontFamily: 'Futura', marginTop: this.externalTitle ? 55:20, top: 0, fontSize: 13, color: this.myTextColor}}>{this.props.earliestStart+'-'+this.props.latestEnd+' mya'}</Text>
+        <Text style={{position: 'absolute', left: this.props.left+this.props.startErrorBarWidth, fontFamily: 'Futura', marginTop: this.externalTitle ? 40:5, top: 0, fontSize: 15, color: this.myTextColor}}>{this.props.title}</Text>
+        <Text style={{position: 'absolute', left: this.props.left+this.props.startErrorBarWidth, fontFamily: 'Futura', marginTop: this.externalTitle ? 55:20, top: 0, fontSize: 13, color: this.myTextColor}}>{this.props.earliestStart+'-'+this.props.latestEnd+' mya'}</Text>
 
       </View>
     )

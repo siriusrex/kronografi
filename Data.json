@@ -45,10 +45,14 @@
       id: 1,
       color: "pink",
       text: "TYRANNOSAURUS REX",
-      earliestStart: 68,
+      images: [
+               "https://www.thoughtco.com/thmb/i2upbFO79XHAxAHznWqcRl30Ob0=/5397x3238/filters:fill(auto,1)/t-rex--artwork-460716257-5b9ae2b046e0fb0025f41a8c.jpg",
+               "https://1.bp.blogspot.com/-tAID6r6iYmU/UDTG8eI0CAI/AAAAAAAABYE/DQIjgbHWM5k/s640/tyrannosaurus-logansdinoworld.com_.jpg"
+               ],
+      earliestStart: 70,
       latestStart: 68,
       earliestEnd: 66,
-      latestEnd:66
+      latestEnd:65
       },
       {
       id: 2,
@@ -64,6 +68,10 @@
       id: 3,
       color: "violet",
       text: "DIPLODOCUS",
+      images: [
+               "https://1.bp.blogspot.com/-G3rLgpw-ylA/TqLb_UeDCPI/AAAAAAAAAnk/S8g-bVzVs4Y/s1600/diplodocus.scene.jpg",
+               "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.kaMiQW4VmQuXC50wS_yoigHaE7%26pid%3DApi&f=1"
+               ],
       earliestStart: 154,
       latestStart: 154,
       earliestEnd: 152,

@@ -8,7 +8,7 @@ KRNOGRAFI TO DO
  - Images and short desc for open timeSpan
  - Button to move to timespan extended view mode (filling viewport with large images and full desc)
 
- - Add earliestStart and latestEnd bars
+ - Add earliestStart and latestEnd bars*DONE
 
 
  - fix jitteriness in pinch zoom
@@ -16,3 +16,10 @@ KRNOGRAFI TO DO
  - data model in database
  - database connection
  - my timelines panel
+ - multiple rows in timeLine to accommodate multiple simultaneous events
+ - images loaded from data
+- more recent time periods <1 MYA
+- time ruler adds smaller increments as viewport widens
+- TimeSpan labels running into each other horizontally
+
+- keep timeLine and TimeSpan labels displaying after scrolling left (make the labels float)

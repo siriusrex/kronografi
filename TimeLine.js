@@ -35,8 +35,15 @@ export default class TimeLine extends Component {
 
       if (i>0){
         if ((this.props.timeSpans[i].latestEnd>=this.props.timeSpans[i-1].latestEnd) && (this.props.timeSpans[i].latestEnd<=this.props.timeSpans[i-1].earliestStart)){
-            this.props.timeSpans[i].row=2;
-            this.rows.row2.push(this.props.timeSpans[i]);
+            if (this.props.timeSpans[i-1].row!=2){
+              this.props.timeSpans[i].row=2;
+              this.rows.row2.push(this.props.timeSpans[i]);
+            }
+            else {
+                this.props.timeSpans[i].row=1;
+                this.rows.row1.push(this.props.timeSpans[i]);
+
+            }
         } else {
             this.props.timeSpans[i].row=1;
             this.rows.row1.push(this.props.timeSpans[i]);
@@ -69,7 +76,8 @@ export default class TimeLine extends Component {
     this.state.heightAnim,            // The animated value to drive
       {
         toValue: amount,                   // Animate to height: 200 (opaque)
-        duration: 1000,              // Make it take a while
+        duration: 1000,
+                     // Make it take a while
       }
     ).start();
 
@@ -103,6 +111,7 @@ export default class TimeLine extends Component {
                     latestStart={item.latestStart}
                     earliestEnd={item.earliestEnd}
                     latestEnd={item.latestEnd}
+                    images={item.images}
                     color={item.color}
                     width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
                     startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
@@ -132,6 +141,7 @@ export default class TimeLine extends Component {
                     latestStart={item.latestStart}
                     earliestEnd={item.earliestEnd}
                     latestEnd={item.latestEnd}
+                    images={item.images}
                     color={item.color}
                     width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
                     startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
