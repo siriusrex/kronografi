@@ -14,7 +14,7 @@ export default class MainView extends Component {
   constructor(props){
     super(props);
     this.state={
-      titlesMargin:10,
+      titlesMargin:40,
       pinchStarted: false,
       initialPinchGap: 0,
       currentPinchGap:300,

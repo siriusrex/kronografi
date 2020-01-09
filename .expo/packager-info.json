@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 62407,
+  "packagerPid": 67499,
   "devToolsPort": 19002,
-  "expoServerNgrokUrl": "https://gd-cb3.anonymous.kronografi.exp.direct",
-  "packagerNgrokUrl": "https://packager.gd-cb3.anonymous.kronografi.exp.direct",
-  "ngrokPid": 62425
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

@@ -110,7 +110,7 @@ export default class TimeSpan extends Component {
     let { imageOpacity } = this.state;
 
     return (
-      <View style={{marginTop:20}}>
+      <View style={{marginTop:40}}>
         <TouchableWithoutFeedback onPress={this.onPress.bind(this)}>
 
           <Animated.View style={{width: this.props.width, height: heightAnim, position: 'absolute', left: this.props.left+(this.externalTitle ? 0:-10), top: 0, backgroundColor: this.props.color}}>

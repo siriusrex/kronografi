@@ -13,8 +13,8 @@ export default class TimeLine extends Component {
     super(props);
     this.state={
       opacity: 100,
-      totalHeight: 150,
-      heightAnim: new Animated.Value(150),
+      totalHeight: 200,
+      heightAnim: new Animated.Value(200),
     };
     this.rows={row1:[], row2:[]};
 
@@ -93,9 +93,9 @@ export default class TimeLine extends Component {
     return (
 
       <Animated.View style={{marginTop: 50, height: heightAnim, justifyContent: 'flex-start', alignItems:'flex-start', flexDirection:'column', backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
-        <Text style={{fontFamily: 'Futura', position: 'absolute', top: 10, marginBottom:10, opacity:this.props.timeLineTitlesOpacity, left:this.props.titlesMargin, fontSize: 20, color: '#fff'}}>{this.props.title}</Text>
+        <Text style={{fontFamily: 'Futura', position: 'absolute', top: 10, marginBottom:10, opacity:this.props.timeLineTitlesOpacity, left:this.props.scopeScrollPos+this.props.titlesMargin, fontSize: 20, color: '#fff'}}>{this.props.title}</Text>
 
-          <View style={{flexDirection: 'row', flex: 1, borderColor:'red', borderWidth:1}}>
+          <View style={{flexDirection: 'row', height: 80, borderColor:'red', borderWidth:1}}>
 
 
 
@@ -125,7 +125,7 @@ export default class TimeLine extends Component {
           )
           )}
           </View>
-          <View style={{flexDirection: 'row', flex: 1, borderColor:'yellow', borderWidth:1}}>
+          <View style={{flexDirection: 'row', height:80, borderColor:'yellow', borderWidth:1}}>
 
 
 
