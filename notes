@@ -1,0 +1,30 @@
+billions of years = * 31557600000000000 seconds
+millions of years = *
+thousands of years
+hundreds of years
+years
+months
+weeks
+days
+hours
+seconds
+milliseconds
+microseconds
+nanoseconds
+picoseconds
+
+
+
+
+if [i].earliestStart<[i-1].earliestStart && [i].latestEnd>[i-1].latestEnd
+
+
+
+this.state.titlesOffset
+this.state.titlesMargin
+this.state.scopeWidth
+this.state.scopeScrollPos
+this.props.scopeSpan
+this.state.pixelUnit
+
+this.state.timeLineTitlesOpacity

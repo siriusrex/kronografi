@@ -17,8 +17,45 @@ export default class Kronografi extends Component {
     this.state={timeLineArray: timeLineArrayData['timeLineArray']};
 
     this.scopeSpan=1;
+    this.timeTester();
   }
 
+  timeTester(){
+
+
+    var oneBillionYears=3.1556952e16;
+    var oneMillionYears=3.1556952e13;
+    var oneMillenium=3.1556952e10;
+    var oneCentury=3.1556952e9;
+    var oneDecade=3.1556952e8;
+    var oneYear=3.1556952e7;
+    var oneMonth=2.629746e6;
+    var oneWeek=6.048e5;
+    var oneHour=3.6e4;
+    var oneMinute=60;
+    var oneSecond=1;
+    var oneMillisecond=1e-3;
+    var oneMicrosecond=1e-6;
+    var oneNanosecond=1e-9;
+    var onePicosecond=1e-10;
+
+    console.log('oneBillionYears:', oneBillionYears);
+
+    console.log('oneMillionYears:', oneMillionYears);
+    console.log('oneMillenium:', oneMillenium);
+    console.log('oneCentury:', oneCentury);
+    console.log('oneDecade:', oneDecade);
+    console.log('oneYear:', oneYear);
+    console.log('oneMonth:', oneMonth);
+    console.log('oneWeek:', oneWeek);
+    console.log('oneHour:', oneHour);
+    console.log('oneMinute:', oneMinute);
+    console.log('oneSecond:', oneSecond);
+    console.log('oneMillisecond:', oneMillisecond);
+    console.log('oneMicrosecond:', oneMicrosecond);
+    console.log('oneNanosecond:', oneNanosecond);
+    console.log('onePicosecond:', onePicosecond);
+  }
 
 
   render() {

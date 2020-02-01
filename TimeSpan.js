@@ -13,7 +13,11 @@ export default class TimeSpan extends Component {
     this.rowHeight=40;
     this.myTextColor;
 
-    this.state={heightAnim: new Animated.Value(this.rowHeight), open: false, imageOpacity:new Animated.Value(0)};
+    this.state= {
+      heightAnim: new Animated.Value(this.rowHeight),
+      open: false,
+      imageOpacity:new Animated.Value(0)
+    };
 
 
 
@@ -66,7 +70,7 @@ export default class TimeSpan extends Component {
               duration: 1000,              // Make it take a while
             }
           )]
-        ).start(() => {this.props.resizeParentVertical(150)});
+        ).start(() => {this.props.resizeParentVertical(250)});
 
 
       this.setState({open:false});
@@ -74,7 +78,7 @@ export default class TimeSpan extends Component {
 
     }
     else {
-      this.props.resizeParentVertical(400);
+      this.props.resizeParentVertical(280);
       Animated.sequence([
 
           Animated.timing(

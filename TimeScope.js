@@ -26,15 +26,27 @@ export default class TimeScope extends Component {
 
   render() {
     return (
-      //removed from view declaration:
-        <View  style={{flex: 1}}>
+
+        <View  style={{position:'relative', flex: 1}}>
 
             <TimeRuler
               scopeSpan={this.props.scopeSpan}
               scopeWidth={this.props.scopeWidth}
               pixelUnit={this.props.pixelUnit}
             />
-            <ScrollView  horizontal={false} scrollEventThrottle={16} >
+
+            <ScrollView
+              name={'timelines'}
+              horizontal={false}
+              scrollEventThrottle={16}
+              onScroll={e => {
+
+                  var scrollY = e.nativeEvent.contentOffset.y;
+                  this.props.scrollTitlesTo({ y: scrollY });
+                }
+
+              }
+              >
 
             { this.props.timeLineArray.map((item, key)=>(
 
@@ -50,10 +62,11 @@ export default class TimeScope extends Component {
               scopeScrollPos={this.props.scopeScrollPos}
               timeLineTitlesOpacity={this.props.timeLineTitlesOpacity}
             />
-           )
+            )
 
-         )}
+            )}
             </ScrollView>
+
 
 
 
