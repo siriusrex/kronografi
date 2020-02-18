@@ -15,7 +15,6 @@
         earliestEnd: 145,
         latestEnd:135
       },
-      {
       id: 1,
       color: "yellow",
       text: "CRETACEOUS",

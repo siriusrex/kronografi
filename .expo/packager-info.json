@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 5295,
+  "packagerPid": 15074,
   "devToolsPort": 19002,
-  "expoServerNgrokUrl": "https://cm-evq.anonymous.kronografi.exp.direct",
-  "packagerNgrokUrl": "https://packager.cm-evq.anonymous.kronografi.exp.direct",
-  "ngrokPid": 5307
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

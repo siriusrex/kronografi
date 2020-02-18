@@ -7,6 +7,7 @@ import { AppRegistry,  View, ScrollView, Text, StyleSheet, Animated} from 'react
 import TimeSpan from './TimeSpan';
 import TimeLineStart from './TimeLineStart';
 import TimeLineEnd from './TimeLineEnd';
+import TimeRow from './TimeRow';
 
 export default class TimeLine extends Component {
   constructor(props){
@@ -17,18 +18,7 @@ export default class TimeLine extends Component {
       heightAnim: new Animated.Value(200),
     };
     this.rows={row1:[], row2:[]};
-
-
-
-
-  }
-
-
-
-
-
-  componentDidMount() {
-    //test whether timespan graphics will overlap, if so, put them on separate lines
+    this.foo='bar';
 
     for (var i = 0; i < this.props.timeSpans.length; i++){
 
@@ -103,6 +93,17 @@ export default class TimeLine extends Component {
       }
     }
 
+  }
+
+
+
+
+
+  componentDidMount() {
+    //test whether timespan graphics will overlap, if so, put them on separate lines
+
+
+    //console.log('TimeLine component, componentDidMount function: this.rows.row1=',this.rows.row1);
   }//end componentDidMount
 
   componentDidUpdate(prevProps){
@@ -113,95 +114,41 @@ export default class TimeLine extends Component {
 
   }
 
-  resizeVertical(amount){
 
-    //console.log('resizeVertical; amount='+amount);
-    //this.setState({height: amount*2});
-    Animated.timing(
-    this.state.heightAnim,            // The animated value to drive
-      {
-        toValue: amount,                   // Animate to height: 200 (opaque)
-        duration: 1000,
-                     // Make it take a while
-      }
-    ).start();
-
-
-  }
 
 
 
   render() {
 
     let { heightAnim } = this.state;
-
+    //console.log('TimeLine component, render function, this.foo=', this.foo);
     return (
 
-      <Animated.View style={{position:'relative', marginTop: 50, height: heightAnim, justifyContent: 'flex-start', alignItems:'flex-start', flexDirection:'column', backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
-
-          <View ref="row1" style={{position:'relative', flexDirection: 'row', height: 80, marginTop:10, borderColor:'red', borderWidth:1}}>
-
-
-
-          {this.rows.row1.map((item, key)=>(
-
-
-
-                  <TimeSpan
-                    key={key}
-                    ref={key}
-                    title={item.text}
-                    earliestStart={item.earliestStart}
-                    latestStart={item.latestStart}
-                    earliestEnd={item.earliestEnd}
-                    latestEnd={item.latestEnd}
-                    images={item.images}
-                    color={item.color}
-                    width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
-                    startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
-                    endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
-
-                    left={this.props.scopeWidth-(item.earliestStart*this.props.pixelUnit)}
-                    row={item.row}
-                    resizeParentVertical={(amount) => this.resizeVertical(amount)}
-                  />
-
-          )
-          )}
-          </View>
-          <View ref="row2" style={{position:'relative', flexDirection: 'row', height:80, borderColor:'yellow', borderWidth:1}}>
+      <Animated.View style={{
+        position:'relative',
+        marginTop: 50,
+        marginBottom:20,
+        height: 'auto',
+        justifyContent: 'flex-start',
+        alignItems:'flex-start',
+        flexDirection:'column',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)'
+      }}>
 
 
 
-          {this.rows.row2.map((item, key)=>(
 
+          <TimeRow
+            spans={this.rows.row1}
+            scopeWidth={this.props.scopeWidth}
+            pixelUnit={this.props.pixelUnit}
+          />
+          <TimeRow
+            spans={this.rows.row2}
+            scopeWidth={this.props.scopeWidth}
+            pixelUnit={this.props.pixelUnit}
+          />
 
-
-                  <TimeSpan
-                    key={key}
-                    ref={key}
-                    title={item.text}
-                    earliestStart={item.earliestStart}
-                    latestStart={item.latestStart}
-                    earliestEnd={item.earliestEnd}
-                    latestEnd={item.latestEnd}
-                    images={item.images}
-                    color={item.color}
-                    width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
-                    startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
-                    endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
-
-
-                    left={this.props.scopeWidth-(item.earliestStart*this.props.pixelUnit)}
-                    row={item.row}
-                    resizeParentVertical={(amount) => this.resizeVertical(amount)}
-                  />
-
-          )
-          )}
-
-
-          </View>
 
 
 
