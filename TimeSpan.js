@@ -70,7 +70,7 @@ export default class TimeSpan extends Component {
               duration: 1000,              // Make it take a while
             }
           )]
-        ).start(() => {this.props.resizeParentVertical(250)});
+        ).start();
 
 
       this.setState({open:false});
@@ -78,7 +78,7 @@ export default class TimeSpan extends Component {
 
     }
     else {
-      this.props.resizeParentVertical(280);
+      
       Animated.sequence([
 
           Animated.timing(
