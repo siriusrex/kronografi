@@ -1,0 +1,18 @@
+/*<Animated.View
+  style={{
+    width: this.props.startErrorBarWidth,
+    height: heightAnim,
+    position: 'relative',
+    backgroundColor: 'rgba(0,0,0,0.2)'
+  }}
+/>
+
+<Animated.View
+  style={{
+    width: this.props.endErrorBarWidth,
+    height: heightAnim,
+    position: 'relative',
+    left: this.props.width-this.props.endErrorBarWidth,
+    backgroundColor: 'rgba(0,0,0,0.2)'
+  }}
+/>*/

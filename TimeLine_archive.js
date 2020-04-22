@@ -72,6 +72,37 @@ export default class TimeLine extends Component {
 
     }// end for loop
 
+    for (var j=0; j<this.rows[0].length; j++) {
+      //check label length, increase vertical gap between timespan block and label
+      //work out item left position, store in item.myLeftPos
+      this.rows[0][j].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[0][j].earliestStart*this.props.pixelUnit));
+
+      //console.log('timeSpan '+this.rows[0][j].text+', myLeftPos='+this.rows.[0][j].myLeftPos);
+      if (this.rows[0][j+1]){
+        var nextLeftPos=this.props.scopeWidth-(this.rows[0][j+1].earliestStart*this.props.pixelUnit);
+        //endMarker is the xpos of this timeSpan plus the estimated pixel width of the label
+        var myTotalEndMarker=this.rows[0][j].myLeftPos+this.rows[0][j].text.length*12
+        if (myTotalEndMarker>nextLeftPos) {
+          console.log('timeSpan text '+this.rows[0][j+1].text+' overlaps timeSpan text '+this.rows[0][j].text);
+        }
+      }
+    }
+
+    for (var k=0; k<this.rows[1].length; k++) {
+      //check label length, increase vertical gap between timespan block and label
+      //work out item left position, store in item.myLeftPos
+      this.rows[1][k].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[1][k].earliestStart*this.props.pixelUnit));
+
+      //console.log('timeSpan '+this.rows[1][k].text+', myLeftPos='+this.rows[1][k].myLeftPos);
+      if (this.rows[1][k+1]){
+        var nextLeftPos=this.props.scopeWidth-(this.rows[1][k+1].earliestStart*this.props.pixelUnit);
+        //endMarker is the xpos of this timeSpan plus the estimated pixel width of the label
+        var myTotalEndMarker=this.rows[1][k].myLeftPos+this.rows[1][k].text.length*12
+        if (myTotalEndMarker>nextLeftPos) {
+          console.log('timeSpan text '+this.rows[1][k+1].text+' overlaps timeSpan text '+this.rows[1][k].text);
+        }
+      }
+    }
 
   }//end componentDidMount
 
@@ -80,18 +111,6 @@ export default class TimeLine extends Component {
     //console.log('this.props.pixelUnit='+this.props.pixelUnit);
     //console.log('this.props.scopeScrollPos='+this.props.scopeScrollPos);
 
-        for (var j=0; j<this.rows[0].length; j++) {
-          //work out item left position, store in item.myLeftPos
-          this.rows[0][j].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[0][j].earliestStart*this.props.pixelUnit));
-
-        }
-
-        for (var k=0; k<this.rows[1].length; k++) {
-
-          //work out item left position, store in item.myLeftPos
-          this.rows[1][k].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[1][k].earliestStart*this.props.pixelUnit));
-
-        }
 
   }
 
