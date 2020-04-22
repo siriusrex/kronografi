@@ -1,0 +1,23 @@
+let thisTimeSpan = array[i];
+let previousTimeSpan = array[i-1];
+
+thisTimeSpan.labelWidth=thisTimeSpan.title.length*maxCharWidth;
+
+//send labelWidth as prop to TimeSpan component
+
+
+if (thisTimeSpan.xPos + this.props.labelWidth > nextTimeSpan.xPos){
+
+  thisTimeSpan.yPos += spanHeight;
+  row2height += spanHeight;
+  thisTimeSpan.descender=true;
+  //send thisTimeSpan.descender boolean as prop
+}
+
+
+//in timeSpan componentDidMount
+if (this.props.descender){
+
+  //add coloured line in centre of thisTimeSpan
+
+}

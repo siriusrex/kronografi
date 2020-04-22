@@ -5,7 +5,17 @@
     start: '252',
     end: 66,
     unit: 'MYA',
-    timeSpans:[{
+    timeSpans:[
+      {
+        id: 2,
+        color: "red",
+        text: "JURASSIC",
+        earliestStart: 223,
+        latestStart: 201,
+        earliestEnd: 145,
+        latestEnd:135
+      },
+      {
       id: 1,
       color: "yellow",
       text: "CRETACEOUS",
@@ -15,23 +25,15 @@
       earliestEnd: 70,
       latestEnd:66
     },
-    {
-      id: 2,
-      color: "red",
-      text: "JURASSIC",
-      earliestStart: 223,
-      latestStart: 201,
-      earliestEnd: 145,
-      latestEnd:145
-    },
+
     {
       id: 3,
       color: "green",
       text: "TRIASSIC",
-      earliestStart: 252,
-      latestStart: 240,
-      earliestEnd: 223,
-      latestEnd:201
+      earliestStart: 130,
+      latestStart: 120,
+      earliestEnd: 100,
+      latestEnd:80
     }]
   },
   {

@@ -7,6 +7,7 @@ import { AppRegistry,  View, ScrollView, Text, StyleSheet, Animated} from 'react
 import TimeSpan from './TimeSpan';
 import TimeLineStart from './TimeLineStart';
 import TimeLineEnd from './TimeLineEnd';
+import TimeRow from './TimeRow';
 
 export default class TimeLine extends Component {
   constructor(props){
@@ -16,7 +17,7 @@ export default class TimeLine extends Component {
       totalHeight: 200,
       heightAnim: new Animated.Value(200),
     };
-    this.rows={row1:[], row2:[]};
+    this.rows=[[], []];
 
 
 
@@ -28,61 +29,73 @@ export default class TimeLine extends Component {
 
 
   componentDidMount() {
-    //test whether timespans overlap, if so, put them on separate lines
+    //test whether timespan graphics will overlap, if so, put them on separate lines
 
     for (var i = 0; i < this.props.timeSpans.length; i++){
 
+      var thisSpan=this.props.timeSpans[i];
+      var prevSpan=this.props.timeSpans[i-1];
 
       if (i>0){
-        if ((this.props.timeSpans[i].latestEnd>=this.props.timeSpans[i-1].latestEnd) && (this.props.timeSpans[i].latestEnd<=this.props.timeSpans[i-1].earliestStart)){
-            if (this.props.timeSpans[i-1].row!=2){
+        if (thisSpan.earliestStart>=prevSpan.latestEnd){
+            //console.log('timespan bar '+thisSpan.text+' overlaps timespan bar '+prevSpan.text);
+            if (prevSpan.row!=2){
               this.props.timeSpans[i].row=2;
-              this.rows.row2.push(this.props.timeSpans[i]);
+              this.rows[1].push(this.props.timeSpans[i]);
             }
             else {
                 this.props.timeSpans[i].row=1;
-                this.rows.row1.push(this.props.timeSpans[i]);
+                this.rows[0].push(this.props.timeSpans[i]);
 
             }
+
+
         } else {
             this.props.timeSpans[i].row=1;
-            this.rows.row1.push(this.props.timeSpans[i]);
+            this.rows[0].push(this.props.timeSpans[i]);
 
         }
+
+
+
       } else {
         this.props.timeSpans[i].row=1;
-        this.rows.row1.push(this.props.timeSpans[i]);
-      }
-
-    }
+        this.rows[0].push(this.props.timeSpans[i]);
 
 
 
-  }
+      }//end if (i>0)
+
+      //console.log('timespan '+this.props.timeSpans[i].text+' row: '+this.props.timeSpans[i].row);
+
+
+
+    }// end for loop
+
+
+  }//end componentDidMount
 
   componentDidUpdate(prevProps){
     //console.log('timeline '+this.props.title+' updated');
     //console.log('this.props.pixelUnit='+this.props.pixelUnit);
     //console.log('this.props.scopeScrollPos='+this.props.scopeScrollPos);
 
+        for (var j=0; j<this.rows[0].length; j++) {
+          //work out item left position, store in item.myLeftPos
+          this.rows[0][j].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[0][j].earliestStart*this.props.pixelUnit));
+
+        }
+
+        for (var k=0; k<this.rows[1].length; k++) {
+
+          //work out item left position, store in item.myLeftPos
+          this.rows[1][k].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[1][k].earliestStart*this.props.pixelUnit));
+
+        }
 
   }
 
-  resizeVertical(amount){
 
-    console.log('resizeVertical; amount='+amount);
-    //this.setState({height: amount*2});
-    Animated.timing(
-    this.state.heightAnim,            // The animated value to drive
-      {
-        toValue: amount,                   // Animate to height: 200 (opaque)
-        duration: 1000,
-                     // Make it take a while
-      }
-    ).start();
-
-
-  }
 
 
 
@@ -90,74 +103,46 @@ export default class TimeLine extends Component {
 
     let { heightAnim } = this.state;
 
+
     return (
 
-      <Animated.View style={{marginTop: 50, height: heightAnim, justifyContent: 'flex-start', alignItems:'flex-start', flexDirection:'column', backgroundColor: 'rgba(255, 255, 255, 0.1)'}}>
-        <Text style={{fontFamily: 'Futura', position: 'absolute', top: 10, marginBottom:10, opacity:this.props.timeLineTitlesOpacity, left:this.props.scopeScrollPos+this.props.titlesMargin, fontSize: 20, color: '#fff'}}>{this.props.title}</Text>
-
-          <View style={{flexDirection: 'row', height: 80, borderColor:'red', borderWidth:1}}>
-
-
-
-          {this.rows.row1.map((item, key)=>(
-
-
-
-                  <TimeSpan
-                    key={key}
-                    ref={key}
-                    title={item.text}
-                    earliestStart={item.earliestStart}
-                    latestStart={item.latestStart}
-                    earliestEnd={item.earliestEnd}
-                    latestEnd={item.latestEnd}
-                    images={item.images}
-                    color={item.color}
-                    width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
-                    startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
-                    endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
-
-                    left={this.props.scopeWidth-(item.earliestStart*this.props.pixelUnit)}
-                    row={item.row}
-                    resizeParentVertical={(amount) => this.resizeVertical(amount)}
-                  />
-
-          )
-          )}
-          </View>
-          <View style={{flexDirection: 'row', height:80, borderColor:'yellow', borderWidth:1}}>
+      <Animated.View style={{
+        position:'relative',
+        marginTop: 50,
+        marginBottom:20,
+        height: 'auto',
+        justifyContent: 'flex-start',
+        alignItems:'flex-start',
+        flexDirection:'column',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)'
+      }}>
 
 
 
-          {this.rows.row2.map((item, key)=>(
+                {this.rows.map((item, key)=>(
 
 
 
-                  <TimeSpan
-                    key={key}
-                    ref={key}
-                    title={item.text}
-                    earliestStart={item.earliestStart}
-                    latestStart={item.latestStart}
-                    earliestEnd={item.earliestEnd}
-                    latestEnd={item.latestEnd}
-                    images={item.images}
-                    color={item.color}
-                    width={(parseInt(item.earliestStart-item.latestEnd))*this.props.pixelUnit}
-                    startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
-                    endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
+                        <TimeRow
+                          key={key}
+                          ref={key}
+
+                          spans={item}
+                          pixelUnit={this.props.pixelUnit}
+                          scopeWidth={this.props.scopeWidth}
 
 
-                    left={this.props.scopeWidth-(item.earliestStart*this.props.pixelUnit)}
-                    row={item.row}
-                    resizeParentVertical={(amount) => this.resizeVertical(amount)}
-                  />
-
-          )
-          )}
 
 
-          </View>
+                        />
+
+                )
+                )}
+
+
+
+
+
 
 
 

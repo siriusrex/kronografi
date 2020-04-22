@@ -18,8 +18,12 @@ KRNOGRAFI TO DO
  - my timelines panel
  - multiple rows in timeLine to accommodate multiple simultaneous events
  - images loaded from data
+      - works but only for remote URLs. Local image paths WAY too weird (ReactNative issue)
 - more recent time periods <1 MYA
 - time ruler adds smaller increments as viewport widens
+  -added functionality but error at certain zoom level: 'array size is not a small enough positive integer'
 - TimeSpan labels running into each other horizontally
 
 - keep timeLine and TimeSpan labels displaying after scrolling left (make the labels float)
+    -TimeLine labels working but a little clunky on the vertical zoom: there's a problem with calling scrollView.scrollTo() from MainView refs (fails silently)
+    - not yet implemented in timeSpans
