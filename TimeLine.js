@@ -5,8 +5,7 @@ Kronografi TimeLine component
 import React, { Component } from 'react';
 import { AppRegistry,  View, ScrollView, Text, StyleSheet, Animated} from 'react-native';
 import TimeSpan from './TimeSpan';
-import TimeLineStart from './TimeLineStart';
-import TimeLineEnd from './TimeLineEnd';
+
 import TimeRow from './TimeRow';
 
 export default class TimeLine extends Component {
@@ -78,8 +77,7 @@ export default class TimeLine extends Component {
   componentDidUpdate(prevProps){
     //console.log('timeline '+this.props.title+' updated');
     //console.log('this.props.pixelUnit='+this.props.pixelUnit);
-    //console.log('this.props.scopeScrollPos='+this.props.scopeScrollPos);
-
+    
         for (var j=0; j<this.rows[0].length; j++) {
           //work out item left position, store in item.myLeftPos
           this.rows[0][j].myLeftPos=parseInt(this.props.scopeWidth-(this.rows[0][j].earliestStart*this.props.pixelUnit));

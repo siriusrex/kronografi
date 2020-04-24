@@ -5,8 +5,7 @@ Kronografi TimeRow component
 import React, { Component } from 'react';
 import { AppRegistry,  View, ScrollView, Text, StyleSheet, Animated} from 'react-native';
 import TimeSpan from './TimeSpan';
-import TimeLineStart from './TimeLineStart';
-import TimeLineEnd from './TimeLineEnd';
+
 
 /* required props
 spans
@@ -17,11 +16,9 @@ scopeWidth
 
 export default class TimeLine extends Component {
   constructor(props){
+    //console.log('TimeRow -> constructor running');
     super(props);
-    this.state={
-      opacity: 1,
-      heightAnim: new Animated.Value(100),
-    };
+
     this.rows={row1:[], row2:[]};
     this.realPos=[0,0,0];
 
@@ -29,26 +26,28 @@ export default class TimeLine extends Component {
 
   }
   componentDidMount() {
-    //this.calculateLeftMargins();
 
   }
 
   componentDidUpdate() {
-    this.calculateLeftMargins();
+
   }
 
   calculateLeftMargins() {
+    //console.log('TimeRow -> calculateLeftMargins running');
     this.widths=[];
     this.realPos=[];
-
+    var allPreviousWidths=0;
     for (let j=0; j<this.props.spans.length; j++) {
-
+      //console.log('TimeRow -> make widths array loop')
       //work out width of each timeSpan and add to array this.widths
       var thisSpan=this.props.spans[j];
-      var myWidth=parseFloat(thisSpan.earliestStart-thisSpan.latestEnd)*this.props.pixelUnit;
+      var myWidth=parseFloat((thisSpan.earliestStart-thisSpan.latestEnd)*this.props.pixelUnit);
       this.widths.push(myWidth);
-      if (!isNaN(myWidth)) {
-        this.props.spans[j].pixelWidth=parseInt(myWidth);
+      if (!isNaN(myWidth) && !isNaN(thisSpan.myLeftPos) && !isNaN(allPreviousWidths)){
+        this.props.spans[j].pixelWidth=myWidth;
+        this.props.spans[j].leftMargin=parseFloat(thisSpan.myLeftPos-allPreviousWidths);
+        allPreviousWidths+=myWidth;
       }
       else {
         this.props.spans[j].pixelWidth=100;
@@ -59,35 +58,12 @@ export default class TimeLine extends Component {
     // We want relative positioning to keep flex working so that elements below this row move down
     //when it gets higher vertically
 
-    for (let i = 0; i < this.props.spans.length; i++){
-      var thisSpan=this.props.spans[i];
 
-      var allPreviousWidths=this.widths.reduceRight(function(a, b, index) {
-        if (index <= i) {
-          return a+b;
-        } else {
-            return 0;
-        }
-      }, 0);
-
-
-      var myRealPos=0;
-      //important: check that incoming pixelWidth and myLeftPos are not NaN, otherwise exception gets thrown on initial repositioning
-      if (!isNaN(thisSpan.pixelWidth) && !isNaN(thisSpan.myLeftPos) && !isNaN(allPreviousWidths)){
-        myRealPos=thisSpan.pixelWidth+thisSpan.myLeftPos-allPreviousWidths;
-      }
-
-
-
-      this.realPos.push(myRealPos);
-
-    }//end for loop
 }
 
   render() {
 
-    let { heightAnim } = this.state;
-    let realPos=this.realPos;
+    this.calculateLeftMargins();
 
 
     return (
@@ -121,7 +97,7 @@ export default class TimeLine extends Component {
                 startErrorBarWidth={(parseInt(item.earliestStart-item.latestStart))*this.props.pixelUnit}
                 endErrorBarWidth={(parseInt(item.earliestEnd-item.latestEnd))*this.props.pixelUnit}
                 pixelUnit={this.props.pixelUnit}
-                left={realPos[key]}
+                left={item.leftMargin}
                 row={item.row}
 
               />

@@ -59,7 +59,7 @@ export default class TimeScope extends Component {
               scopeWidth={this.props.scopeWidth}
               pixelUnit={this.props.pixelUnit}
               titlesMargin={this.props.titlesMargin}
-              scopeScrollPos={this.props.scopeScrollPos}
+              
               timeLineTitlesOpacity={this.props.timeLineTitlesOpacity}
             />
             )

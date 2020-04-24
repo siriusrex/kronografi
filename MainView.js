@@ -15,29 +15,30 @@ export default class MainView extends Component {
   constructor(props){
     super(props);
     this.state={
-      titlesMargin:20,
+
       titlesOffset:0,
 
 
       panResponderEnabled: true,
       scopeWidth: 2000,
       pixelUnit:1,
-      initialYellowBarWidth:100,
-      yellowBarWidth:100,
-      scopeScrollPos:0,
-      panResponderCount:0
 
+
+      panResponderCount:0,
+      markerX: 0,
+      markerY: 0
     };
 
     this.globals={
       pinchGap:0,
       initialPinchGap:0,
       currentPinchGap:300,
-
+      titlesMargin:20,
       initialScopeWidth: 2000,
       scopeScrollPos:0,
       lastScrolledTo:0,
-      pinchStarted: false
+      pinchStarted: false,
+
     }
 
     this.panResponder = PanResponder.create({
@@ -50,10 +51,13 @@ export default class MainView extends Component {
 
   }
 
-//componentDidlMount() {
+componentDidlMount() {
+    var windowDims=Dimensions.get('window');
+    this.setState({scopeWidth:windowDims.width});
+    this.globals.initialScopeWidth=windowDims.width;
+    this.scrollScopeTo(0, 0);
 
-
-  //}
+  }
 
   handlePanResponderGrant(evt: Object, gestureState: Object){
     //console.log('handlePanResponderGrant');
@@ -68,18 +72,22 @@ export default class MainView extends Component {
 
 
     if (this.state.panResponderEnabled){
-      //console.log('evt.nativeEvent.touches.length='+evt.nativeEvent.touches.length);
+      console.log('evt.nativeEvent.touches.length='+evt.nativeEvent.touches.length);
       if (evt.nativeEvent.touches.length>1){
         var touch1X:Number=parseFloat(evt.nativeEvent.touches[1].pageX);
         var touch0X:Number=parseFloat(evt.nativeEvent.touches[0].pageX);
         this.globals.pinchGap=Math.abs(parseInt(touch1X-touch0X));
-        //console.log('multitouch, touch1X='+touch1X);
-        //console.log('multitouch, touch0X='+touch0X);
+        console.log('multitouch, touch1X='+touch1X);
+        console.log('multitouch, touch0X='+touch0X);
         //console.log('pinchGap='+this.globals.pinchGap);
         if (this.globals.pinchStarted==false){
-          this.globals.initialTouch0X=touch0X;
+          if (touch0X<touch1X){
+            this.globals.initialLeftTouchX=touch0X;
+          } else {
+            this.globals.initialLeftTouchX=touch1X;
+          }
 
-          this.setState({initialYellowBarWidth:this.state.yellowBarWidth});
+
 
           this.globals.initialPinchGap=this.globals.pinchGap;
           this.globals.pinchStarted=true;
@@ -96,12 +104,18 @@ export default class MainView extends Component {
           var windowDims=Dimensions.get('window');
           //console.log('this.state.initialScopeWidth*scopeRatio='+this.state.initialScopeWidth*scopeRatio+'; windowDims.width='+windowDims.width);
           if (this.globals.initialScopeWidth*scopeRatio>windowDims.width){
-            this.setState({scopeWidth: (this.globals.initialScopeWidth*scopeRatio), yellowBarWidth: (this.state.initialYellowBarWidth*scopeRatio)}, () =>{
+            this.newScopeWidth=this.globals.initialScopeWidth*scopeRatio;
+            this.globals.pixelUnit=this.newScopeWidth/this.props.scopeSpan;
+            this.setState({scopeWidth: this.newScopeWidth, pixelUnit: this.globals.pixelUnit }, () =>{
 
-              //console.log('setScopeWidthCallback');
-              this.setState({pixelUnit: this.state.scopeWidth/this.props.scopeSpan}, () => {/*console.log('callback for mainview state.pixelUnit, this.state.pixelUnit='+this.state.pixelUnit)*/});
-              //console.log(this.globals);
-              var gestureCentre=this.globals.initialTouch0X+(this.globals.initialPinchGap/2);
+              console.log('setScopeWidthCallback');
+              /*this.setState({pixelUnit: this.state.scopeWidth/this.props.scopeSpan}, () => {
+                console.log('callback for mainview state.pixelUnit, this.state.pixelUnit='+this.state.pixelUnit);
+
+              });*/
+              var gestureCentre=this.globals.initialLeftTouchX+(this.globals.initialPinchGap/2);
+
+              this.setState({markerX: gestureCentre});
               //console.log('gestureCentre='+gestureCentre);
 
               var adjustDistance=(gestureCentre*scopeRatio)-gestureCentre;
@@ -114,7 +128,11 @@ export default class MainView extends Component {
 
               this.globals.lastScrolledTo=scrollTarget;
               this.scrollScopeTo(scrollTarget, 0);
+
+
             });
+            //console.log(this.globals);
+
           }
           else {
             this.setState({scopeWidth:windowDims.width});
@@ -144,10 +162,14 @@ export default class MainView extends Component {
 
   handlePanResponderRelease (evt: Object, gestureState: Object){
     //console.log('pan responder release. this.state.yellowBarWidth='+this.state.yellowBarWidth);
-    this.setState({initialYellowBarWidth: this.state.yellowBarWidth, yellowBarWidth: this.state.yellowBarWidth});
 
     this.globals.scopeScrollPos=this.globals.lastScrolledTo;
     this.globals.pinchStarted=false;
+  }
+
+  resizeScope(){
+
+
   }
 
   scrollScopeTo(newX, newY){
@@ -155,18 +177,18 @@ export default class MainView extends Component {
     if (this.globals.scopeScrollPos>0) {
 
       this.scopeHScroller.scrollTo({x:newX, y:0, animated:false});
-      this.setState({scopeScrollPos: this.globals.scopeScrollPos});
+
     }
     else {
       this.scopeHScroller.scrollTo({x:0, y:0, animated:false});
-      this.setState({scopeScrollPos: 0});
+
 
     }
   }
   recordHScroll(evt:object){
     //console.log('recordingHScroll, evt.nativeEvent.contentOffset.x='+evt.nativeEvent.contentOffset.x);
     this.globals.scopeScrollPos=evt.nativeEvent.contentOffset.x;
-    this.setState({scopeScrollPos: this.globals.scopeScrollPos});
+
   }
 
   scrollTitlesTo(scrollValue) {
@@ -208,8 +230,8 @@ export default class MainView extends Component {
                 top: 80,
                 height:250,
                 width:1000,
-                opacity:this.props.timeLineTitlesOpacity,
-                left:this.state.titlesMargin,
+                opacity:1,
+                left:this.globals.titlesMargin,
                 fontSize: 20,
                 color: '#fff'}}>
               {item.title}
@@ -228,12 +250,12 @@ export default class MainView extends Component {
 
           <TimeScope
             scopeWidth={this.state.scopeWidth}
-            scopeScrollPos={this.state.scopeScrollPos}
+
             scopeSpan={this.props.scopeSpan}
             pixelUnit={this.state.pixelUnit}
             timeLineArray={this.props.timeLineArray}
-            titlesMargin={this.state.titlesMargin}
-            timeLineTitlesOpacity={this.state.timeLineTitlesOpacity}
+            titlesMargin={this.globals.titlesMargin}
+
             scrollTitlesTo={(scrollValue) => this.scrollTitlesTo(scrollValue)}
           />
 
@@ -241,6 +263,8 @@ export default class MainView extends Component {
 
 
         <BottomNav/>
+        <View style={{position:'absolute', backgroundColor: 'yellow', width: 5, height: 10, top:this.state.markerY, left: this.state.markerX}}></View>
+
       </View>
     )
 
